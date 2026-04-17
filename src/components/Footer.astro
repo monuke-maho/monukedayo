@@ -1,0 +1,68 @@
+---
+import { Code, MessageCircle } from "@lucide/astro";
+
+const today = new Date();
+---
+
+<footer class="border-t border-slate-100 py-12 lg:py-16">
+  <div class="mx-auto flex max-w-7xl flex-col gap-12 px-4 md:px-8">
+    <div class="flex flex-col justify-between gap-12 md:flex-row">
+      <div class="flex flex-col gap-4">
+        <a href="/" class="text-xl font-bold">monukedayo</a>
+        <p class="max-w-xs text-sm leading-relaxed text-slate-500">
+          日々の制作や考えたことを記録するブログ兼ポートフォリオサイトです。
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-12 md:gap-24">
+        <div class="flex flex-col gap-4">
+          <h3 class="text-sm font-bold uppercase tracking-wider text-slate-900">
+            Pages
+          </h3>
+          <nav class="flex flex-col gap-2 text-sm text-slate-500">
+            <a href="/" class="transition-colors hover:text-emerald-700">Home</a>
+            <a href="/blog" class="transition-colors hover:text-emerald-700"
+              >Blog</a
+            >
+            <a href="/about" class="transition-colors hover:text-emerald-700"
+              >About</a
+            >
+          </nav>
+        </div>
+
+        <div class="flex flex-col gap-4">
+          <h3 class="text-sm font-bold uppercase tracking-wider text-slate-900">
+            Social
+          </h3>
+          <div class="flex flex-row items-center gap-4 text-slate-500">
+            <a
+              href="#"
+              class="transition-colors hover:text-slate-900"
+              aria-label="GitHub"
+            >
+              <Code class="h-5 w-5" />
+            </a>
+            <a
+              href="#"
+              class="transition-colors hover:text-slate-900"
+              aria-label="Social"
+            >
+              <MessageCircle class="h-5 w-5" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="flex flex-col items-center justify-between gap-4 border-t border-slate-50 pt-8 text-center md:flex-row md:text-left"
+    >
+      <p class="text-xs text-slate-400">
+        &copy; {today.getFullYear()} monukedayo. All rights reserved.
+      </p>
+      <p class="text-xs text-slate-400">
+        Built with Astro & Tailwind CSS.
+      </p>
+    </div>
+  </div>
+</footer>

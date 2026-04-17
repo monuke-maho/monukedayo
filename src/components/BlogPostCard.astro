@@ -1,0 +1,54 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { ChevronRight } from "@lucide/astro";
+
+interface Props {
+  post: CollectionEntry<"blog">;
+}
+
+const { post } = Astro.props;
+---
+
+<a
+  href={`/blog/${post.id}`}
+  class="group flex flex-row gap-8 rounded-2xl p-6 transition-all duration-300 **:transition-all **:duration-300 hover:bg-slate-50/50"
+>
+  <div
+    class="flex h-14 w-14 shrink items-center justify-center self-center rounded-2xl bg-emerald-50 text-2xl group-hover:scale-105 group-hover:rotate-10"
+  >
+    {post.data.emoji}
+  </div>
+  <div class="flex flex-1 flex-col space-y-2">
+    <div class="flex flex-row items-center gap-2">
+      <p class="text-xs text-slate-500">
+        {
+          post.data.date.toLocaleDateString("ja-jp", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+          })
+        }
+      </p>
+      {
+        post.data.tags && post.data.tags.length > 0 && (
+          <div class="h-1 w-1 rounded-full bg-slate-500/50" />
+        )
+      }
+      {
+        post.data.tags &&
+          post.data.tags
+            .map((t) => <span class="mr-1 text-xs text-slate-500">#{t}</span>)
+            .slice(0, 3)
+      }
+    </div>
+    <p class="text-xl font-bold group-hover:text-emerald-700">
+      {post.data.title}
+    </p>
+    <p class="line-clamp-1 text-sm leading-relaxed text-slate-500">
+      {post.data.description}
+    </p>
+  </div>
+  <ChevronRight
+    class="h-6 w-6 -translate-x-2 self-center text-slate-200 opacity-0 group-hover:translate-x-0 group-hover:text-emerald-500 group-hover:opacity-100"
+  />
+</a>
