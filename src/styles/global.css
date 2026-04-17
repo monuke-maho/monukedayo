@@ -4,3 +4,69 @@
 @theme {
   --default-font-family: "Inter Variable", "Noto Sans JP Variable", sans-serif;
 }
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+}
+
+@layer base {
+  body {
+    @apply antialiased;
+  }
+}
+
+@layer components {
+  .remark-link-card-plus__container {
+    @apply my-8 block;
+
+    img {
+      @apply m-0!;
+    }
+  }
+
+  .prose .remark-link-card-plus__container a.remark-link-card-plus__card {
+    @apply flex h-auto flex-col-reverse overflow-hidden rounded-3xl border border-solid border-slate-200 bg-white font-normal text-inherit transition-all duration-200 hover:border-emerald-400 hover:shadow-md sm:h-[126px] sm:flex-row;
+    text-decoration: none !important;
+  }
+
+  .remark-link-card-plus__main {
+    @apply flex min-w-0 flex-1 flex-col justify-between p-4;
+  }
+
+  .remark-link-card-plus__content {
+    @apply flex flex-col;
+  }
+
+  .prose .remark-link-card-plus__title {
+    @apply mt-0 mb-1 line-clamp-1 text-sm leading-tight font-bold text-slate-900 sm:text-base;
+  }
+
+  .prose .remark-link-card-plus__description {
+    @apply m-0 line-clamp-2 text-xs leading-snug text-slate-500 sm:text-sm;
+  }
+
+  .remark-link-card-plus__meta {
+    @apply mt-2 flex items-center gap-2;
+  }
+
+  .prose .remark-link-card-plus__favicon {
+    @apply h-4! w-4! object-contain;
+  }
+
+  .prose .remark-link-card-plus__url {
+    @apply m-0 truncate text-xs text-slate-400;
+  }
+
+  .remark-link-card-plus__thumbnail {
+    @apply block w-full shrink-0 border-b border-solid border-slate-100 sm:w-[240px] sm:border-b-0 sm:border-l;
+  }
+
+  .prose .remark-link-card-plus__image {
+    @apply aspect-[1.91/1] h-full w-full object-cover sm:aspect-auto;
+  }
+
+  .prose :not(pre) > code {
+    @apply rounded-md border border-slate-200 bg-slate-200/50 px-1.5 py-0.5 text-[0.9em] font-medium wrap-break-word text-slate-800;
+  }
+}

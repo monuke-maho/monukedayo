@@ -13,6 +13,8 @@ published: true
 このブログの殆どの要素はAIを使用して作られています。
 使用したのはAntigravityです。
 
+https://antigravity.google/
+
 以下はログです。スクショはないですけどね。ごめんね。
 
 ## 大まかな流れ
