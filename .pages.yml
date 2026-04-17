@@ -20,6 +20,8 @@ content:
         label: Date
         type: date
         required: true
+        options:
+          format: "yyyy-MM-dd'T'HH:mm:ssXXX"
       - name: emoji
         label: Emoji
         type: string
