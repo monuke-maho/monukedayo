@@ -1,0 +1,14 @@
+{
+    "$schema": "./node_modules/wrangler/config-schema.json",
+    "name": "monukedayo",
+    "compatibility_date": "2026-04-17",
+    "assets": {
+        "directory": "./dist"
+    },
+    "routes": [
+        {
+            "pattern": "monukedayo.cc",
+            "custom_domain": true
+        }
+    ]
+}
