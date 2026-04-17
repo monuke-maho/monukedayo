@@ -21,8 +21,7 @@ content:
         type: date
         required: true
         options:
-          time: true
-          format: "yyyy-MM-dd'T'HH:mm:ssXXX"
+          format: "yyyy-MM-dd"
       - name: emoji
         label: Emoji
         type: string
