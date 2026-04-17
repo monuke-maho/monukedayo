@@ -1,0 +1,61 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import { IconChevronLeft, IconHash } from "@tabler/icons-preact";
+import { TAGS, UI } from "../../consts";
+import BlogPostCard from "../../components/BlogPostCard.astro";
+
+export async function getStaticPaths() {
+  const allPosts = await getCollection(
+    "blog",
+    ({ data }) => import.meta.env.DEV || data.published,
+  );
+
+  const uniqueTags = [...new Set(allPosts.map((post) => post.data.tags || []).flat())];
+
+  return uniqueTags.map((tag) => {
+    const filteredPosts = allPosts.filter((post) =>
+      post.data.tags?.includes(tag),
+    ).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+    return {
+      params: { tag },
+      props: { posts: filteredPosts },
+    };
+  });
+}
+
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+---
+
+<Layout>
+  <section class="flex w-full flex-col gap-6 py-16 md:py-24">
+    <a
+      href="/tags"
+      class="flex w-fit flex-row items-center gap-2 text-sm font-medium text-slate-500 transition-colors hover:text-slate-900"
+    >
+      <IconChevronLeft size={16} /> {TAGS.backToAll}
+    </a>
+    <div class="flex flex-row items-center gap-4">
+      <div
+        class="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-500"
+      >
+        <IconHash size={24} />
+      </div>
+      <h1 class="text-6xl font-bold tracking-tight text-slate-900">{tag}</h1>
+    </div>
+    <p class="text-xl font-bold text-slate-500">
+      タグ「{tag}」が付いた記事の一覧。
+    </p>
+  </section>
+
+  <section class="flex flex-col gap-8 border-t border-slate-100 py-12">
+    <div class="flex flex-row items-center justify-between">
+      <h2 class="text-2xl font-bold">記事一覧</h2>
+      <p class="text-sm text-slate-500">{posts.length} 記事</p>
+    </div>
+    <div class="grid w-full grid-cols-1 gap-4">
+      {posts.map((post) => <BlogPostCard post={post} />)}
+    </div>
+  </section>
+</Layout>

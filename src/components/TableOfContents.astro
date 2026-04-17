@@ -1,5 +1,6 @@
 ---
-import { List } from "@lucide/astro";
+import { IconList } from "@tabler/icons-preact";
+import { UI } from "@/consts";
 
 interface Props {
   headings: {
@@ -15,12 +16,12 @@ const filteredHeadings = headings.filter((h) => h.depth > 1 && h.depth <= 3);
 
 {
   filteredHeadings.length > 0 && (
-    <nav class="flex flex-col gap-4 rounded-2xl bg-slate-50/50 p-6">
+    <nav class="flex flex-col gap-4 rounded-3xl bg-white p-6 shadow-sm border border-slate-100">
       <div class="flex flex-row items-center gap-2 font-bold text-slate-900">
-        <List class="h-4 w-4 text-emerald-600" />
-        目次
+        <IconList size={16} class="text-emerald-600" />
+        {UI.toc}
       </div>
-      <ul class="flex flex-col gap-2 border-l border-slate-200 pl-4">
+      <ul class="flex flex-col gap-2 pl-4">
         {filteredHeadings.map((heading) => (
           <li
             class:list={[
@@ -48,11 +49,39 @@ const filteredHeadings = headings.filter((h) => h.depth > 1 && h.depth <= 3);
   const observeHeadings = () => {
     const observerOptions = {
       root: null,
-      rootMargin: "-100px 0px -70% 0px",
+      rootMargin: "-100px 0px -60% 0px",
       threshold: 0,
     };
 
     const tocLinks = document.querySelectorAll(".toc-link");
+    const highlightClasses = ["text-emerald-600", "font-bold", "translate-x-1"];
+    
+    const clearHighlights = () => {
+      tocLinks.forEach((link) => link.classList.remove(...highlightClasses));
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      // If at the top of the page, don't highlight anything
+      if (window.scrollY < 50) {
+        clearHighlights();
+        return;
+      }
+
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          tocLinks.forEach((link) => {
+            const slug = link.getAttribute("data-slug");
+            if (slug === id) {
+              link.classList.add(...highlightClasses);
+            } else {
+              link.classList.remove(...highlightClasses);
+            }
+          });
+        }
+      });
+    }, observerOptions);
+
     const headings = Array.from(tocLinks)
       .map((link) => {
         const slug = link.getAttribute("data-slug");
@@ -60,31 +89,14 @@ const filteredHeadings = headings.filter((h) => h.depth > 1 && h.depth <= 3);
       })
       .filter((h): h is HTMLElement => h !== null);
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const id = entry.target.id;
-          tocLinks.forEach((link) => {
-            const slug = link.getAttribute("data-slug");
-            if (slug === id) {
-              link.classList.add(
-                "text-emerald-600",
-                "font-bold",
-                "translate-x-1",
-              );
-            } else {
-              link.classList.remove(
-                "text-emerald-600",
-                "font-bold",
-                "translate-x-1",
-              );
-            }
-          });
-        }
-      });
-    }, observerOptions);
-
     headings.forEach((heading) => observer.observe(heading));
+
+    // Handle initial state and scroll to top
+    window.addEventListener("scroll", () => {
+      if (window.scrollY < 50) {
+        clearHighlights();
+      }
+    }, { passive: true });
   };
 
   // Initialize

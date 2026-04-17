@@ -5,6 +5,7 @@ import "@fontsource-variable/noto-sans-jp";
 
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
+import { SITE } from "@/consts";
 ---
 
 <!doctype html>
@@ -15,11 +16,12 @@ import Footer from "@/components/Footer.astro";
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
-    <title>Astro Basics</title>
+    <title>{SITE.title}</title>
+    <meta name="description" content={SITE.description} />
   </head>
-  <body class="flex min-h-screen flex-col bg-white text-slate-900">
+  <body class="flex min-h-screen flex-col bg-slate-50/30 text-slate-900">
     <Header />
-    <main class="mx-auto w-full max-w-7xl grow px-4 py-12 pt-20 md:px-8">
+    <main class="mx-auto w-full max-w-7xl grow px-4 py-12 pt-24 md:px-8">
       <slot />
     </main>
     <Footer />

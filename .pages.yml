@@ -1,3 +1,8 @@
+media:
+  input: content/images
+  output: ../images
+  rename: random
+
 content:
   - name: blog
     label: Blog
@@ -34,6 +39,26 @@ content:
         label: Published
         type: boolean
         default: false
+      - name: body
+        label: Body
+        type: rich-text
+  - name: pages
+    label: Pages
+    type: collection
+    path: content/pages
+    delimiters: "---"
+    filename:
+      template: "{primary}.md"
+      field: create
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: description
+        label: Description
+        type: string
+        required: true
       - name: body
         label: Body
         type: rich-text

@@ -1,0 +1,71 @@
+---
+import { getCollection, render } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+import { IconChevronLeft } from "@tabler/icons-preact";
+import TableOfContents from "../components/TableOfContents.astro";
+import { UI } from "@/consts";
+
+export async function getStaticPaths() {
+  const pages = await getCollection("pages");
+  return pages.map((page) => ({
+    params: { id: page.id },
+    props: { page },
+  }));
+}
+
+const { page } = Astro.props;
+const { Content, headings } = await render(page);
+---
+
+<Layout>
+  <section class="flex w-full flex-col gap-6 py-16 md:py-24">
+    <a
+      href="/"
+      class="flex w-fit flex-row items-center gap-2 text-sm font-medium text-slate-500 transition-colors hover:text-slate-900"
+    >
+      <IconChevronLeft size={16} /> {UI.backToHome}
+    </a>
+    <h1
+      class="text-4xl leading-tight font-bold text-slate-900 md:text-5xl tracking-tight"
+    >
+      {page.data.title}
+    </h1>
+    <p class="text-xl font-bold text-slate-500">
+      {page.data.description}
+    </p>
+  </section>
+
+  <section class="border-t border-slate-100 py-12">
+    <div
+      class:list={[
+        "grid grid-cols-1 gap-12",
+        headings.length > 0 && "lg:grid-cols-[1fr_300px]",
+      ]}
+    >
+      <div class="flex flex-col gap-10">
+        {
+          headings.length > 0 && (
+            <div class="lg:hidden">
+              <TableOfContents {headings} />
+            </div>
+          )
+        }
+        <article
+          class="prose prose-slate prose-headings:font-bold prose-headings:text-slate-900 prose-a:font-bold prose-a:text-emerald-700 hover:prose-a:text-emerald-500 prose-img:rounded-3xl max-w-3xl"
+        >
+          <Content />
+        </article>
+      </div>
+
+      {
+        headings.length > 0 && (
+          <aside class="hidden lg:block">
+            <div class="sticky top-24">
+              <TableOfContents {headings} />
+            </div>
+          </aside>
+        )
+      }
+    </div>
+  </section>
+</Layout>

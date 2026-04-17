@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import { ChevronRight } from "@lucide/astro";
+import { IconChevronRight } from "@tabler/icons-preact";
 
 interface Props {
   post: CollectionEntry<"blog">;
@@ -11,7 +11,7 @@ const { post } = Astro.props;
 
 <a
   href={`/blog/${post.id}`}
-  class="group flex flex-row gap-8 rounded-2xl p-6 transition-all duration-300 **:transition-all **:duration-300 hover:bg-slate-50/50"
+  class="group flex flex-row gap-8 rounded-3xl p-6 transition-all duration-300 **:transition-all **:duration-300 hover:-translate-y-0.5 hover:bg-white hover:shadow-md"
 >
   <div
     class="flex h-14 w-14 shrink items-center justify-center self-center rounded-2xl bg-emerald-50 text-2xl group-hover:scale-105 group-hover:rotate-10"
@@ -48,7 +48,8 @@ const { post } = Astro.props;
       {post.data.description}
     </p>
   </div>
-  <ChevronRight
-    class="h-6 w-6 -translate-x-2 self-center text-slate-200 opacity-0 group-hover:translate-x-0 group-hover:text-emerald-500 group-hover:opacity-100"
+  <IconChevronRight
+    size={24}
+    class="translate-x-[-8px] self-center text-slate-200 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:text-emerald-500 group-hover:opacity-100"
   />
 </a>

@@ -5,7 +5,7 @@ date: 2026-04-17T00:00:00Z
 emoji: ☺️
 tags:
   - 雑記
-published: false
+published: true
 ---
 
 ## 静的サイトとは

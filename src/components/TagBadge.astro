@@ -1,0 +1,22 @@
+---
+interface Props {
+  tag: string;
+  count?: number;
+}
+
+const { tag, count } = Astro.props;
+---
+
+<a
+  href={`/tags/${tag}`}
+  class="group inline-flex items-center gap-2 rounded-3xl bg-emerald-50 px-4 py-1.5 text-sm font-bold text-emerald-700 transition-all duration-300 hover:-translate-y-0.5 hover:bg-emerald-100 hover:shadow-md hover:shadow-emerald-100/30 active:scale-95"
+>
+  <span>#{tag}</span>
+  {
+    count !== undefined && (
+      <span class="flex h-5 min-w-5 items-center justify-center rounded-full bg-emerald-100 px-1.5 text-[10px] font-bold text-emerald-600 group-hover:bg-emerald-200">
+        {count}
+      </span>
+    )
+  }
+</a>
