@@ -42,6 +42,10 @@ content:
       - name: body
         label: Body
         type: rich-text
+    actions:
+      - name: deploy
+        label: Deploy
+        workflow: build.yml
   - name: pages
     label: Pages
     type: collection
@@ -62,3 +66,8 @@ content:
       - name: body
         label: Body
         type: rich-text
+
+actions:
+  - name: deploy
+    label: Deploy
+    workflow: build.yml
